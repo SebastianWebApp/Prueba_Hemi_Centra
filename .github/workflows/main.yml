@@ -78,24 +78,24 @@ jobs:
 
               
               # Descargar las imágenes desde Docker Hub
-              docker pull sebastianwebapp/prueba_hemi:latest
+              docker pull sebastianwebapp/prueba_hemi_front:latest
 
 
 
            
               # Detener y eliminar contenedores antiguos
-              docker stop prueba_hemi || true
-              docker rm prueba_hemi || true
+              docker stop prueba_hemi_front || true
+              docker rm prueba_hemi_front || true
               
             
   
              
 
-              # Iniciar el contenedor de prueba_hemi
-              docker run -d --name prueba_hemi \
+              # Iniciar el contenedor de prueba_hemi_front
+              docker run -d --name prueba_hemi_front \
                 --restart always \
                 -p 80:80 \
-                sebastianwebapp/prueba_hemi:latest
+                sebastianwebapp/prueba_hemi_front:latest
   
 
               echo "Despliegue completado exitosamente"

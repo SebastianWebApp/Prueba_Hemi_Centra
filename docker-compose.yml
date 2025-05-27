@@ -6,7 +6,7 @@ services:
     build:
       context: ./ # En donde se encuentra el archivo Dockerfile
     container_name: prueba_hemi
-    image: sebastianwebapp/prueba_hemi:latest
+    image: sebastianwebapp/prueba_hemi_front:latest
     ports:
       - "80:80"  # Mapea el puerto 3000
 

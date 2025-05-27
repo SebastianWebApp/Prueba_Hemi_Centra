@@ -1,65 +1,52 @@
-var Lista = [];
-localStorage.removeItem("Lista_Pokemones");
 
 document.getElementById("Btn_Buscar").onclick = async function(e){
 
-    alert("clic")
+    try {
 
-    Lista = [];
-    var Inp_Nombre = document.getElementById("Inp_Nombre").value;
-    var Select_Generacion = document.getElementById("Select_Generacion").value;
-
-    if(Inp_Nombre.trim() == "" && Select_Generacion == "Seleccione"){
-        alert("Ingrese un nombre o seleccion una generacion");
-        return;
-    }
-
-
-    if(Inp_Nombre.trim() != ""){
-        var Solicitud = await fetch(`https://pokeapi.co/api/v2/pokemon/${Inp_Nombre}`, {
+        var Solicitud = await fetch(`http://ec2-3-86-209-53.compute-1.amazonaws.com/`, {
             method: "GET",  // Cambiar a POST
             headers: {
                 "Content-Type": "application/json"  // Especificamos que los datos están en formato JSON
             }     
         });
     
-        if(Solicitud.ok){
-            Lista.push(Inp_Nombre);                     
-        }
-        else{
-    
-            alert("esta mal el nombre");
-        }
-    }
+           var Respuesta_Servidor = await Solicitud.json();
 
-    if(Select_Generacion != "Seleccione"){
-        var Solicitud = await fetch(`https://pokeapi.co/api/v2/generation/${Select_Generacion}/`, {
+           console.log(Respuesta_Servidor)
+
+           document.getElementById("Imagen").src = Respuesta_Servidor.Respuesta.Logo;
+           document.getElementById("Descripcion").innerText = Respuesta_Servidor.Respuesta.Descripcion;
+
+           
+        var Solicitud = await fetch(`http://ec2-3-95-182-107.compute-1.amazonaws.com/`, {
             method: "GET",  // Cambiar a POST
             headers: {
                 "Content-Type": "application/json"  // Especificamos que los datos están en formato JSON
             }     
         });
-    
-        if(Solicitud.ok){
-    
-            var Respuesta_Servidor = await Solicitud.json();
+        var Respuesta_Servidor = await Solicitud.json();
 
-            for (let index = 0; index < Respuesta_Servidor.pokemon_species.length; index++) {
+        console.log(Respuesta_Servidor)
 
-                if(!Lista.includes(Respuesta_Servidor.pokemon_species[index].name)){
-                    Lista.push(Respuesta_Servidor.pokemon_species[index].name);
-                }
-            }
+           document.getElementById("Genero").innerText = Respuesta_Servidor.Respuesta.Genero;
+           document.getElementById("Telefono").innerText = Respuesta_Servidor.Respuesta.Telefono;
+           document.getElementById("Email").innerText = Respuesta_Servidor.Respuesta.Email;
+       
 
-            
-        }
-        else{
-    
-            alert("esta mal la generacion");
-        }
+              var Solicitud = await fetch(`http://ec2-54-145-132-125.compute-1.amazonaws.com`, {
+            method: "GET",  // Cambiar a POST
+            headers: {
+                "Content-Type": "application/json"  // Especificamos que los datos están en formato JSON
+            }     
+        });
+        var Respuesta_Servidor = await Solicitud.json();
+
+                   document.getElementById("Mascota").src = Respuesta_Servidor.Respuesta;
+
+        
+    } catch (error) {
+        alert("Error al leer el equipo")
     }
-    
-    localStorage.setItem("Lista_Pokemones", Lista);
 
-   location.href = "/info";
+
 }
