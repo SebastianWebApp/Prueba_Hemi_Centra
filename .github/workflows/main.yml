@@ -1,7 +1,7 @@
 name: AWS
 
 on:
-  pull_request:
+  push:
     branches:
       - main  # Cambia según sea necesario
 
